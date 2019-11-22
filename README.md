@@ -8,7 +8,7 @@ JSON Web Token session middleware backed by [Redis](http://redis.io/). This conn
 # Install
 
 ```bash
-npm install jwt-redis-session
+npm install @patagoniantech/jwt-redis-session
 ```
 
 # Important Notes
@@ -32,7 +32,7 @@ This module supports a few initialization parameters that can be used to support
 * **maxAge** - The maximum age (in seconds) of a session.
 
 ```javascript
-var JWTRedisSession = require("jwt-redis-session"),
+var JWTRedisSession = require("@patagoniantech/jwt-redis-session"),
     express = require("express"),
     redis = require("redis");
 

@@ -1,7 +1,7 @@
 {
   "name": "@patagoniantech/jwt-redis-session",
   "description": "JSON Web Token session middleware backed by Redis",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "authors": "Azuqua",
   "contributors": [
     "Alec Embke (alec@azuqua.com)",
