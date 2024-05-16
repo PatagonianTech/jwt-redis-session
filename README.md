@@ -27,16 +27,16 @@ This module supports a few initialization parameters that can be used to support
 * **requestArg** - The parameter name on the HTTP request that refers to the JWT. The middleware will look for this property in the query string, request body, and headers. The header name will be derived from a camelBack representation of the property name. For example, if the requestArg is "accessToken" (the default) then this instance of the middlware will look for the header name "x-access-token".
 * **keyspace** - The prefix of the keys stored in redis. By default this is "sess:".
 * **secret** - The secret key used to encrypt token data.
-* **algorithm** - The hashing algorithm to use, the default is "HS256" (SHA-256).
+* **signOptions** - A SignOptions from "jsonwebtoken" package. This property is optional
 * **client** - The redis client to use to perform redis commands.
 * **maxAge** - The maximum age (in seconds) of a session.
 
 ```javascript
-var JWTRedisSession = require("@patagoniantech/jwt-redis-session"),
+const JWTRedisSession = require("@patagoniantech/jwt-redis-session"),
     express = require("express"),
     redis = require("redis");
 
-var redisClient = redis.createClient(),
+const redisClient = redis.createClient(),
     secret = generateSecretKeySomehow(),
     app = express();
 
@@ -45,7 +45,9 @@ app.use(JWTRedisSession({
     secret: secret,
     keyspace: "sess:",
     maxAge: 86400,
-    algorithm: "HS256",
+	signOptions: {
+		algorithm: 'HS256'
+	},
     requestKey: "jwtSession",
     requestArg: "jwtToken"
 }));
