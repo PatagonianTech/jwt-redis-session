@@ -45,9 +45,9 @@ app.use(JWTRedisSession({
     secret: secret,
     keyspace: "sess:",
     maxAge: 86400,
-	signOptions: {
-		algorithm: 'HS256'
-	},
+    signOptions: {
+        algorithm: 'HS256'
+    },
     requestKey: "jwtSession",
     requestArg: "jwtToken"
 }));
