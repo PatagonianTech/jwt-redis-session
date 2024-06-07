@@ -64,7 +64,7 @@ const publicKey = fs.readFileSync('/path/to/public_key.pem', 'utf8');
 app.use(JWTRedisSession({
     client: redisClient,
     secret: privateKey,
-	verificationKey: publicKey,
+    verificationKey: publicKey,
     keyspace: "sess:",
     maxAge: 86400,
     signOptions: {
