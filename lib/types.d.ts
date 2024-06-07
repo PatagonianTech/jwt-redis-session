@@ -2,10 +2,10 @@ import type jwt from "jsonwebtoken";
 
 /**
  * JWTSessionConfig. Configuration for JWTSession.
- * 
+ *
  * @param {Object} client - Redis client
- * @param {string} secretOrPrivateKey - Secret key for JWT. Used for signing and verifying JWT. In case of using a asymmetric key, you should use (for instance) the private_key.pem for this property and you must use the public_key.pem for secretOrPublicKey.
- * @param {string} secretOrPublicKey - Public key for JWT. Used for verifying JWT. In case of using a asymmetric key, you should use (for instance) the public_key.pem for this property and you must use the private_key.pem for secretOrPrivateKey.
+ * @param {string} secret - Secret key for JWT. Used for signing and verifying JWT. In case of using a asymmetric key, you should use (for instance) the private_key.pem for this property and you must use the public_key.pem for verificationKey.
+ * @param {string} verificationKey - Public key for JWT. Used for verifying JWT. In case of using a asymmetric key, you should use (for instance) the public_key.pem for this property and you must use the private_key.pem for secret.
  * @param {jwt.SignOptions} signOptions - Options for JWT sign method.
  * @param {string} keyspace - Prefix for Redis keys.
  * @param {number} maxAge - Max age for JWT token.
@@ -16,8 +16,8 @@ import type jwt from "jsonwebtoken";
  */
 export interface JWTSessionConfig {
   client: Object;
-  secretOrPrivateKey: string;
-  secretOrPublicKey: string;
+  secret: string;
+  verificationKey?: string;
   signOptions?: jwt.SignOptions;
   keyspace?: string;
   maxAge?: number;
