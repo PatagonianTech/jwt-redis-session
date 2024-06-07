@@ -27,6 +27,7 @@ This module supports a few initialization parameters that can be used to support
 * **requestArg** - The parameter name on the HTTP request that refers to the JWT. The middleware will look for this property in the query string, request body, and headers. The header name will be derived from a camelBack representation of the property name. For example, if the requestArg is "accessToken" (the default) then this instance of the middlware will look for the header name "x-access-token".
 * **keyspace** - The prefix of the keys stored in redis. By default this is "sess:".
 * **secret** - The secret key used to encrypt token data.
+* **verificationSecret** - The secret key used to verify the token signature.
 * **signOptions** - A SignOptions from "jsonwebtoken" package. This property is optional
 * **client** - The redis client to use to perform redis commands.
 * **maxAge** - The maximum age (in seconds) of a session.
@@ -34,6 +35,7 @@ This module supports a few initialization parameters that can be used to support
 ```javascript
 const JWTRedisSession = require("@patagoniantech/jwt-redis-session"),
     express = require("express"),
+    fs = require('fs'),
     redis = require("redis");
 
 const redisClient = redis.createClient(),
@@ -47,6 +49,26 @@ app.use(JWTRedisSession({
     maxAge: 86400,
     signOptions: {
         algorithm: 'HS256'
+    },
+    requestKey: "jwtSession",
+    requestArg: "jwtToken"
+}));
+
+
+
+// If you need to use an asymmetric algorithm such as RS256
+
+const privateKey = fs.readFileSync('/path/to/private_key.pem', 'utf8');
+const publicKey = fs.readFileSync('/path/to/public_key.pem', 'utf8');
+
+app.use(JWTRedisSession({
+    client: redisClient,
+    secret: privateKey,
+    verificationKey: publicKey,
+    keyspace: "sess:",
+    maxAge: 86400,
+    signOptions: {
+        algorithm: 'RS256'
     },
     requestKey: "jwtSession",
     requestArg: "jwtToken"
