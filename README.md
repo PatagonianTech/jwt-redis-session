@@ -35,7 +35,7 @@ This module supports a few initialization parameters that can be used to support
 ```javascript
 const JWTRedisSession = require("@patagoniantech/jwt-redis-session"),
     express = require("express"),
-	fs = require('fs'),
+    fs = require('fs'),
     redis = require("redis");
 
 const redisClient = redis.createClient(),
